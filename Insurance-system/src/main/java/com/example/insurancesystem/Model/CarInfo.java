@@ -21,9 +21,11 @@ public class CarInfo {
     @Column(columnDefinition = "varchar(20) not null")
     private String carName;
     @NotEmpty(message = "should not be empty")
-    @Column(columnDefinition = "varchar(20) not null")
-    private String carModel;
-
+    @Column(columnDefinition = "int not null")
+    private Integer carModel;
+    @NotEmpty(message = "should not be empty")
+    @Column(columnDefinition = "int not null unique")
+    private Integer serialNumber;
     @OneToOne
     @MapsId
     @JsonIgnore
