@@ -12,6 +12,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "user_id", referencedColumnName = "id")
