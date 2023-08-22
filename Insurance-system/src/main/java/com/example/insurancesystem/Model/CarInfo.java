@@ -23,5 +23,4 @@ public class CarInfo {
     @Column(columnDefinition = "varchar(20) not null")
     private String carModel;
 
-
 }
