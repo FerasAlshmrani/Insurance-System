@@ -10,4 +10,5 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 public class CarInfo {
+    // hello
 }
