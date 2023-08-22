@@ -40,4 +40,13 @@ public class InsuranceService {
         insuranceRepository.save(insurances);
     }
 
+
+    public Insurance findInsuranceByName(String name){
+        Insurance insurance1 = insuranceRepository.findInsuranceByName(name);
+        if(insurance1 == null){
+            throw new ApiException("Insurance not found");
+        }
+        return insurance1;
+    }
+
 }

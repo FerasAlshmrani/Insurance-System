@@ -24,7 +24,7 @@ public class Insurance {
     @Column(columnDefinition = "varchar(15) NOT NULL unique check(name = 'tawuniya' or name = 'salama' or name = 'walaa')")
     private String name;
     @NotEmpty(message = "Should be not empty")
-    @Column(columnDefinition = "varchar(25)")
+    @Column(columnDefinition = "varchar(200)")
     private String description;
 
     @NotNull(message = "Should be not null")
