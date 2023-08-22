@@ -23,4 +23,9 @@ public class InsurancePackage {
     @JsonIgnore
     private Insurance insurance;
 
+
+    @ManyToOne
+    @JoinColumn(name = "order_id" , referencedColumnName = "id")
+    @JsonIgnore
+    private Order order;
 }
