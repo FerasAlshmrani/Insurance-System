@@ -45,3 +45,6 @@ insurance2/.mvn/
 
 insurance2/src/test/java/com/example/insurance2/Insurance2ApplicationTests.java
 insurance2/src/main/resources/application.properties
+
+.idea
+
