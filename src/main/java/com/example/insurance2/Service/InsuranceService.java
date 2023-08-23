@@ -66,4 +66,5 @@ public class InsuranceService {
             insuranceRepository.save(insurance1);
         }
     }
+
 }

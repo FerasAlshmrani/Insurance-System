@@ -21,9 +21,8 @@ public class Insurance {
     private Integer id;
 
     @NotEmpty(message = "Should be not empty")
-    @Column(columnDefinition = "varchar(15) NOT NULL unique check(name = 'tawuniya' or name = 'salama' or name = 'walaa')")
+    @Column(columnDefinition = "varchar(15) NOT NULL check(name = 'tawuniya' or name = 'salama' or name = 'walaa')")
     private String name;
-    @NotEmpty(message = "Should be not empty")
     @Column(columnDefinition = "varchar(200)")
     private String description;
 
