@@ -1,7 +1,11 @@
 package com.example.insurance2.Service;
 
 import com.example.insurance2.Api.ApiException;
+import com.example.insurance2.Model.Car;
+import com.example.insurance2.Model.InsurancePackage;
 import com.example.insurance2.Model.User;
+import com.example.insurance2.Repository.CarRepository;
+import com.example.insurance2.Repository.InsurancePackageRepository;
 import com.example.insurance2.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,7 +16,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
-
+    private final CarRepository carRepository;
+    private final InsurancePackageRepository insurancePackageRepository;
     public List<User> getAllUser(){
         return userRepository.findAll();
     }
@@ -30,6 +35,8 @@ public class UserService {
 
         user1.setName(user.getName());
         user1.setPhonenumber(user.getPhonenumber());
+        user1.setBalance(user.getBalance());
+        user1.setRole(user.getRole());
         userRepository.save(user1);
     }
 
@@ -62,4 +69,39 @@ public class UserService {
 
         return user;
     }
+
+    public void byService(Integer id, String serviceName){
+        User user = userRepository.findUserById(id);
+        InsurancePackage service = insurancePackageRepository.findInsurancePackageByinsurancetype(serviceName);
+
+
+        if (user == null || service == null){
+            throw new ApiException("User or Service Not found");
+        }
+
+        if (user.getBalance() < service.getInsurancePrice()){
+            throw new ApiException("You Don not have Enough Balance");
+        }
+
+
+            for (Car u : user.getCar()){
+                if (u.getCarModel() < 2006){
+                    Double raisedPrice = service.getInsurancePrice() * 1.2;
+                    Double newBlance = user.getBalance() - raisedPrice;
+
+                    user.setBalance(newBlance);
+                    userRepository.save(user);
+                }
+            }
+
+
+            Double newBalance = user.getBalance() - service.getInsurancePrice();
+
+            user.setBalance(newBalance);
+
+            userRepository.save(user);
+
+    }
+
+
 }
