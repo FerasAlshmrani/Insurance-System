@@ -34,3 +34,9 @@ insurance2/.vscode/
 
 insurance2/src/.test/
 insurance2/src/main/.resources/
+
+insurance2/pom.xml
+insurance2/mvnw.cmd
+insurance2/mvnw
+insurance2/.gitignore
+insurance2/.mvn/
