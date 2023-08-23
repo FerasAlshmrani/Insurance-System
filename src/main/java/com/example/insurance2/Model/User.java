@@ -1,6 +1,5 @@
 package com.example.insurance2.Model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -41,4 +40,7 @@ public class User {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy="user")
     private Set<OrderUser> orderUserSet;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private Set<Insurance> insuranceSet;
 }

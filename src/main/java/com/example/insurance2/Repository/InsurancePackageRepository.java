@@ -12,8 +12,6 @@ public interface InsurancePackageRepository extends JpaRepository<InsurancePacka
     List<InsurancePackage> findInsurancePackageByInsurancePriceIsLessThan(Double insurancePrice);
 
     List<InsurancePackage>findInsurancePackageByInsurancetype(String insuranceType);
-
-    InsurancePackage findInsurancePackageByinsurancetype(String serviceName);
-
+    InsurancePackage findInsurancePackageByinsurancetype(String insuranceType);
 
 }
