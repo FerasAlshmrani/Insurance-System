@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
@@ -20,23 +21,36 @@ public class OrderUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-
+    //insurance
+    private String name;
+    private String insuranceType;
+    //User
+    private String role;
     //@NotEmpty(message = "endDate should be not empty")
-    private Date endDate;
-
-    @OneToOne(cascade = CascadeType.ALL,mappedBy = "order")
-    @PrimaryKeyJoinColumn
-    private Car car;
-
-    @NotEmpty(message = "should be not empty")
-    @Column(columnDefinition = "varchar(15) NOT NULL check(insurance_name = 'tawuniya' or insurance_name = 'salama' or insurance_name = 'walaa') ")
-    private String insurance_name;
-
+    private String startDate;
+    private String duration= "Year";
+    private String userName;
+    private Integer phoneNumber;
+    private Integer carQuantity;
     private Double insurancePrice;
-    private String duration = "Year";
+
+
+/*    @OneToMany(cascade = CascadeType.ALL, mappedBy="orderuser")
+    private Set<Car> car;*/
+
+/*    @OneToMany(cascade = CascadeType.ALL,mappedBy = "order")
+    @PrimaryKeyJoinColumn*/
+    //private Car car;
+
+/*    @NotEmpty(message = "should be not empty")
+    @Column(columnDefinition = "varchar(15) NOT NULL check(insurance_name = 'tawuniya' or insurance_name = 'salama' or insurance_name = 'walaa') ")
+    private String insurance_name;*/
+/*
+
     @NotEmpty(message = "Should be not empty")
     @Column(columnDefinition = "varchar(50) NOT NULL check(insurancetype = 'Third party insurance' or insurancetype = 'full insurance')")
     private String insurancetype;
+*/
 
 
     @ManyToOne

@@ -2,8 +2,10 @@ package com.example.insurance2.Service;
 
 import com.example.insurance2.Api.ApiException;
 import com.example.insurance2.Model.Insurance;
+import com.example.insurance2.Model.User;
 import com.example.insurance2.Repository.InsurancePackageRepository;
 import com.example.insurance2.Repository.InsuranceRepository;
+import com.example.insurance2.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,7 @@ import java.util.List;
 public class InsuranceService {
     private final InsuranceRepository insuranceRepository;
     private final InsurancePackageRepository insurancePackageRepository;
+    private final UserRepository userRepository;
     public List<Insurance> getAll(){
         return insuranceRepository.findAll();
     }
@@ -66,5 +69,16 @@ public class InsuranceService {
             insuranceRepository.save(insurance1);
         }
     }
+
+    public void assingInsuranceToUser(Integer userId, Integer insuranceId){
+        User user = userRepository.findUserById(userId);
+        Insurance insurance = insuranceRepository.findInsuranceById(insuranceId);
+        if(insurance == null || user == null){
+            throw new ApiException("Insurance or user not found");
+        }
+        insurance.setUser(user);
+        insuranceRepository.save(insurance);
+    }
+
 
 }

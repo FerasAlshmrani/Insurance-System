@@ -1,7 +1,6 @@
 package com.example.insurance2.Service;
 
 import com.example.insurance2.Api.ApiException;
-import com.example.insurance2.DTO.CarDTO;
 import com.example.insurance2.Model.Car;
 import com.example.insurance2.Model.OrderUser;
 import com.example.insurance2.Model.User;
@@ -23,33 +22,24 @@ public class CarService {
         return carRepository.findAll();
     }
 
-    public void addCar(CarDTO carDTO){
-        OrderUser orderUser = orderUserRepository.findOrderUserById(carDTO.getOrder_Id());
-        if(orderUser == null) {
-            throw new ApiException("Order Id Not found");
-        }
-        Car car= new Car(null,carDTO.getCarName(),carDTO.getCarModel(),carDTO.getSerialNumber(),orderUser,carDTO.getUser());
-
+    public void addCar(Car car){
         carRepository.save(car);
         }
 
 
 
-    public void updateCar(Integer id, CarDTO carDTO){
+    public void updateCar(Integer id, Car car){
         Car carInfo = carRepository.findCarInfoById(id);
-        OrderUser orderUser = orderUserRepository.findOrderUserById(carDTO.getOrder_Id());
 
         if(carInfo == null){
             throw new ApiException("Wrong carID");
         }
-        if(orderUser == null){
-            throw new ApiException("Wrong Order Id");
-        }
 
-        carInfo.setCarName(carDTO.getCarName());
-        carInfo.setCarModel(carDTO.getCarModel());
-        carInfo.setSerialNumber(carDTO.getSerialNumber());
-        carInfo.setUser(carDTO.getUser());
+
+        carInfo.setCarName(car.getCarName());
+        carInfo.setCarModel(car.getCarModel());
+        carInfo.setSerialNumber(car.getSerialNumber());
+        carInfo.setUser(car.getUser());
         carRepository.save(carInfo);
     }
 
@@ -59,17 +49,6 @@ public class CarService {
         if (carInfo == null ){
             throw new ApiException("Car Id Not found");
         }
-
-        CarDTO carDTO = new CarDTO(carInfo.getOrder().getId(),carInfo.getCarName(),carInfo.getCarModel(),carInfo.getSerialNumber(),carInfo.getUser());
-        OrderUser orderUser = orderUserRepository.findOrderUserById(carDTO.getOrder_Id());
-        if(orderUser.getCar() == null){
-            throw new ApiException("this OrderId dont have car details to delete !");
-        }
-
-        orderUser.setCar(null);
-        orderUserRepository.save(orderUser);
-        carRepository.delete(carInfo);
-
 
 
         carRepository.delete(carInfo);
@@ -98,8 +77,13 @@ public class CarService {
             throw new ApiException("No Assgin");
         }
 
+
+
         car.setUser(user);
         carRepository.save(car);
 
+    }
+    public List<Car> getAllCarLessThan2006(){
+        return carRepository.findAllByCarModelLessThan2006();
     }
 }

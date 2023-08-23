@@ -1,82 +1,95 @@
 package com.example.insurance2.Service;
 
 import com.example.insurance2.Api.ApiException;
+import com.example.insurance2.Model.Car;
 import com.example.insurance2.Model.InsurancePackage;
 import com.example.insurance2.Model.OrderUser;
 import com.example.insurance2.Model.User;
-import com.example.insurance2.Repository.CarRepository;
-import com.example.insurance2.Repository.InsurancePackageRepository;
-import com.example.insurance2.Repository.OrderUserRepository;
-import com.example.insurance2.Repository.UserRepository;
+import com.example.insurance2.Repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
 public class OrderUserService {
 
     private final OrderUserRepository orderUserRepository;
-    private final UserRepository userRepository;
-    private final InsurancePackageRepository insurancePackageRepository;
+    private final InsuranceRepository insuranceRepository;
 
     public List<OrderUser> getAllOrders(){
         return orderUserRepository.findAll();
     }
 
-    public void addOrderUser(OrderUser orderUser,Integer user_id,Integer insurance_package_id){
+    public void addOrderUser(User user , InsurancePackage insurancePackage, Set<Car> carSet){
 
-        User user = userRepository.findUserById(user_id);
-        InsurancePackage insurancePackage = insurancePackageRepository.findInsurancePackageById(insurance_package_id);
-        if (user == null || insurancePackage == null){
-            throw new ApiException("Wrong data");
+        Date CurrentDate = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String formattedDate = dateFormat.format(CurrentDate);
+
+        if(user.getInsuranceSet().size() == 0){
+            throw new ApiException("insurance name not found");
         }
 
+
+        if(insuranceRepository.findInsuranceByName("walaa") != null){
+            OrderUser orderUser = new OrderUser(null,"walaa",insurancePackage.getInsurancetype(),user.getRole(),formattedDate,
+                    insurancePackage.getDuration(),user.getName(), user.getPhonenumber(),user.getCarQuntity(),insurancePackage.getInsurancePrice()* user.getCarQuntity(),user,insurancePackage);
+            orderUserRepository.save(orderUser);
+
+        } else if (insuranceRepository.findInsuranceByName("tawuniya") != null) {
+            OrderUser orderUser = new OrderUser(null,"tawuniya",insurancePackage.getInsurancetype(),user.getRole(),formattedDate,
+                    insurancePackage.getDuration(),user.getName(), user.getPhonenumber(),user.getCarQuntity(),insurancePackage.getInsurancePrice()* user.getCarQuntity(),user,insurancePackage);
+            orderUserRepository.save(orderUser);
+
+        } else if (insuranceRepository.findInsuranceByName("salama") != null) {
+            OrderUser orderUser = new OrderUser(null,"salama",insurancePackage.getInsurancetype(),user.getRole(),formattedDate,
+                    insurancePackage.getDuration(),user.getName(), user.getPhonenumber(),user.getCarQuntity(),insurancePackage.getInsurancePrice()* user.getCarQuntity(),user,insurancePackage);
+
+            orderUserRepository.save(orderUser);
+        }else{
+            throw new ApiException("insurance name not found");
+        }
+
+
+
+        }
+
+        public OrderUser findOrderUserById(Integer id){
+        return orderUserRepository.findById(id).get();
+        }
+/*
         orderUser.setUser(user);
-        orderUser.setInsurance_package(insurancePackage);
+        orderUser.setInsurance_package(insurancePackage);*/
 
         // insurance class
-        orderUser.setInsurance_name(insurancePackage.getInsurance().getName());
+//        orderUser.setInsurance_name(insurancePackage.getInsurance().getName());
 
         // insurancePackage class
+/*
         orderUser.setInsurancetype(insurancePackage.getInsurancetype());
         orderUser.setInsurancePrice(insurancePackage.getInsurancePrice());
         orderUser.setDuration(insurancePackage.getDuration());
+*/
 
 
         // orderUser.setCar(user.getCar());
 
 
-        orderUserRepository.save(orderUser);
-    }
+        //orderUserRepository.save(orderUser);
 
-    public void updateOrderUser(OrderUser orderUser , Integer id){
-        OrderUser orderUser1 = orderUserRepository.findOrderUserById(id);
-        if(orderUser1 == null){
-            throw new ApiException("OrderUser");
-        }
+
+
+/*
         orderUser1.setCar(orderUser.getCar());
-        orderUser1.setInsurance_name(orderUser.getInsurance_package().getInsurance().getName());
+        orderUser1.s(orderUser.getInsurance_package().getInsurance().getName());
         orderUser1.setEndDate(orderUser.getEndDate());
-
-        orderUserRepository.save(orderUser1);
-
-
-    }
+*/
 
 
-    public void assaignOrderToUser(Integer user_id , Integer order_id){
-        OrderUser orderUser = orderUserRepository.findOrderUserById(order_id);
-        User user = userRepository.findUserById(user_id);
 
-
-        if(orderUser == null || user_id == null){
-            throw  new ApiException("Wrong Data");
-        }
-
-        orderUser.setUser(user);
-        orderUserRepository.save(orderUser);
-
-    }
 }

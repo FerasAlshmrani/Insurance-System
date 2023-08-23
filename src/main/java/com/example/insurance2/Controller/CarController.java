@@ -1,7 +1,6 @@
 package com.example.insurance2.Controller;
 
 import com.example.insurance2.Api.ApiResponse;
-import com.example.insurance2.DTO.CarDTO;
 import com.example.insurance2.Model.Car;
 import com.example.insurance2.Service.CarService;
 import jakarta.validation.Valid;
@@ -19,15 +18,15 @@ public class CarController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity addCar(@RequestBody @Valid CarDTO carDTO){
-        carInfoService.addCar(carDTO);
+    public ResponseEntity addCar(@RequestBody @Valid Car car){
+        carInfoService.addCar(car);
 
         return ResponseEntity.status(200).body("Car Added");
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity updateUser(@PathVariable Integer id, @RequestBody @Valid CarDTO carDTO){
-        carInfoService.updateCar(id,carDTO);
+    public ResponseEntity updateUser(@PathVariable Integer id, @RequestBody @Valid Car car){
+        carInfoService.updateCar(id,car);
         return ResponseEntity.status(200).body(new ApiResponse("Car updated"));
     }
 
@@ -53,5 +52,9 @@ public class CarController {
     public ResponseEntity assignUserToCar(@PathVariable Integer user_id, @PathVariable Integer car_id){
         carInfoService.assignUserToCar(user_id, car_id);
         return ResponseEntity.status(200).body("assign Done");
+    }
+    @GetMapping("/get-less-model")
+    public ResponseEntity getallCarLessThan2006(){
+        return ResponseEntity.status(200).body(carInfoService.getAllCarLessThan2006());
     }
 }

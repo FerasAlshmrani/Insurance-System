@@ -13,7 +13,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class InsurancePackageService {
+public class  InsurancePackageService {
     private final InsurancePackageRepository insurancePackageRepository;
     private final InsuranceRepository insuranceRepository;
 

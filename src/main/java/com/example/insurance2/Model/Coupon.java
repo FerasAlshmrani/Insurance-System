@@ -18,12 +18,14 @@ public class Coupon {
     private Integer id;
 
     @NotEmpty(message = "should be not empty")
-    @Column(columnDefinition = "varchar(10) NOT NULL unique")
+    @Column(columnDefinition = "varchar(20) NOT NULL unique")
     private String couponCode;
 
     @NotNull(message = "should be not null")
+    @Column(columnDefinition = "DOUBLE NOT NULL")
     private Double couponPrice;
 
+    @NotEmpty(message = "should be not empty")
     @Column(columnDefinition = "varchar(10) NOT NULL check(status = 'active' or status = 'used')")
     private String status;
 

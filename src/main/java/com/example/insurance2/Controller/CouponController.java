@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/coupons")
 @RequiredArgsConstructor
+@RestController
 public class CouponController {
     private final CouponSerivce couponservice;
 

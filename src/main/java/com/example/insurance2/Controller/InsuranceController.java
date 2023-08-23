@@ -46,4 +46,9 @@ public class InsuranceController {
           insuranceService.addDescription(insuranceId);
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Description added"));
     }
+    @PutMapping("/assing-insurance/{userId}/{insuranceId}")
+    public ResponseEntity assingInsuranceToUser(@PathVariable Integer userId, @PathVariable Integer insuranceId){
+        insuranceService.assingInsuranceToUser(userId, insuranceId);
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Insurance assigned"));
+    }
 }

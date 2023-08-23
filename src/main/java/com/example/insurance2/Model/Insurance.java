@@ -32,4 +32,8 @@ public class Insurance {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy="insurance")
     private Set<InsurancePackage> insurancePackages;
+
+    @ManyToOne
+    @JoinColumn(name="user_id",referencedColumnName = "id")
+    private User user;
 }

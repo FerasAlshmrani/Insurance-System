@@ -25,12 +25,18 @@ public class Car {
     //@NotNull(message = "should not be empty")
     @Column(columnDefinition = "int not null unique")
     private Integer serialNumber;
+/*
 
     @OneToOne
     @MapsId
     @JsonIgnore
     private OrderUser order;
+*/
 
+/*    @ManyToOne
+    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    @JsonIgnore
+    private OrderUser orderuser;*/
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")

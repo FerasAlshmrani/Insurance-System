@@ -21,6 +21,7 @@ public class InsurancePackage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @NotNull(message = "Should be not null")
+    @Column(columnDefinition = "DOUBLE not null")
     private Double insurancePrice;
     private String duration = "Year";
     @NotEmpty(message = "Should be not empty")
