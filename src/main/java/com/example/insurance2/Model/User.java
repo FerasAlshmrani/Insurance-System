@@ -41,4 +41,7 @@ public class User {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy="user")
     private Set<OrderUser> orderUserSet;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private Set<Insurance> insuranceSet;
 }

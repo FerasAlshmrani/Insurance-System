@@ -2,9 +2,11 @@ package com.example.insurance2.Service;
 
 import com.example.insurance2.Api.ApiException;
 import com.example.insurance2.Model.Car;
+import com.example.insurance2.Model.Coupon;
 import com.example.insurance2.Model.InsurancePackage;
 import com.example.insurance2.Model.User;
 import com.example.insurance2.Repository.CarRepository;
+import com.example.insurance2.Repository.CouponRepository;
 import com.example.insurance2.Repository.InsurancePackageRepository;
 import com.example.insurance2.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +20,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final CarRepository carRepository;
     private final InsurancePackageRepository insurancePackageRepository;
+    private final CouponRepository couponRepository;
     public List<User> getAllUser(){
         return userRepository.findAll();
     }
@@ -102,6 +105,23 @@ public class UserService {
             userRepository.save(user);
 
     }
+    public void useCoupon(Integer id, String couponCode){
+        User user = userRepository.findUserById(id);
+        Coupon coupon = couponRepository.findCouponByCouponCode(couponCode);
 
+        if (user==null){
+            throw new ApiException("User Not Found");
+        } else if (coupon == null) {
+            throw new ApiException("No Coupon Found");
+        } else if (coupon.getStatus().equals("used")) {
+            throw new ApiException("Coupon is Already Used");
+        } else {
+            Double newBalance = user.getBalance() + coupon.getCouponPrice();
+            user.setBalance(newBalance);
+            coupon.setStatus("used");
+            userRepository.save(user);
+            couponRepository.save(coupon);
+        }
+    }
 
 }

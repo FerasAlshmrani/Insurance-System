@@ -59,5 +59,10 @@ public class UserController {
         userService.byService(id, serviceName);
         return ResponseEntity.status(200).body("Payment Done");
         }
+        @PutMapping("/use-coupon/{id}/{couponCode}")
+    public ResponseEntity usedCheck(@PathVariable Integer id, @PathVariable String couponCode){
+        userService.useCoupon(id, couponCode);
+        return ResponseEntity.status(200).body("coupon is  used");
+    }
 }
 
