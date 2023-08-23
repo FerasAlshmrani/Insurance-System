@@ -13,6 +13,7 @@ public interface InsurancePackageRepository extends JpaRepository<InsurancePacka
 
     List<InsurancePackage>findInsurancePackageByInsurancetype(String insuranceType);
 
+    InsurancePackage findInsurancePackageByinsurancetype(String serviceName);
 
 
 }

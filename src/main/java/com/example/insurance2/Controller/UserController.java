@@ -53,5 +53,11 @@ public class UserController {
         User user = userService.getUserById(id);
         return ResponseEntity.status(200).body(user);
     }
+
+    @PutMapping ("/by-service/{id}/{serviceName}")
+    public ResponseEntity byService(@PathVariable Integer id, @PathVariable String serviceName){
+        userService.byService(id, serviceName);
+        return ResponseEntity.status(200).body("Payment Done");
+        }
 }
 

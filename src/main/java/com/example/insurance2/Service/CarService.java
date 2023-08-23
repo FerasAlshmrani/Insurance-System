@@ -98,8 +98,14 @@ public class CarService {
             throw new ApiException("No Assgin");
         }
 
+
+
         car.setUser(user);
         carRepository.save(car);
 
+    }
+
+    public List<Car> getAllCarLessThan2006(){
+        return carRepository.findAllByCarModelLessThan2006();
     }
 }
