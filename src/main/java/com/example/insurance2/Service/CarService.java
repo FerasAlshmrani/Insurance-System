@@ -102,4 +102,7 @@ public class CarService {
         carRepository.save(car);
 
     }
+    public List<Car> getAllCarLessThan2006(){
+        return carRepository.findAllByCarModelLessThan2006();
+    }
 }

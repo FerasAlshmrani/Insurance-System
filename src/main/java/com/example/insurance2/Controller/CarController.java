@@ -54,4 +54,8 @@ public class CarController {
         carInfoService.assignUserToCar(user_id, car_id);
         return ResponseEntity.status(200).body("assign Done");
     }
+    @GetMapping("/get-less-model")
+    public ResponseEntity getallCarLessThan2006(){
+        return ResponseEntity.status(200).body(carInfoService.getAllCarLessThan2006());
+    }
 }
