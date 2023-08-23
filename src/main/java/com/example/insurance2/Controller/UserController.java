@@ -55,7 +55,7 @@ public class UserController {
     }
     @PutMapping ("/by-service/{id}/{serviceName}/{role}")
     public ResponseEntity byService(@PathVariable Integer id, @PathVariable String serviceName,@PathVariable String role){
-        userService.byService(id, serviceName,role);
+        userService.byService(id, serviceName);
         return ResponseEntity.status(200).body("Payment Done");
         }
     @PutMapping("/use-coupon/{id}/{couponCode}")

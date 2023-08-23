@@ -2,7 +2,6 @@ package com.example.insurance2.Service;
 
 import com.example.insurance2.Api.ApiException;
 import com.example.insurance2.Model.Car;
-import com.example.insurance2.Model.OrderUser;
 import com.example.insurance2.Model.User;
 import com.example.insurance2.Repository.CarRepository;
 import com.example.insurance2.Repository.OrderUserRepository;
@@ -76,9 +75,13 @@ public class CarService {
         if (user == null || car == null){
             throw new ApiException("No Assgin");
         }
+        for (Car u : user.getCar()) {
+            if(u.getId().equals(car.getId())){
+                throw new ApiException("Already assgined");
+            }
+        }
 
-
-
+        user.setCarQuntity(user.getCarQuntity()+1);
         car.setUser(user);
         carRepository.save(car);
 

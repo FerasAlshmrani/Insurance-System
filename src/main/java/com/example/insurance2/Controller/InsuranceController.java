@@ -26,13 +26,13 @@ public class InsuranceController {
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Insurance added"));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity updateInsurance(@PathVariable Integer id,@RequestBody @Valid Insurance insurance) {
         insuranceService.updateInsurance(id, insurance);
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Insurance updated"));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteInsurance(@PathVariable Integer id) {
         insuranceService.removeInsurance(id);
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Insurance deleted"));

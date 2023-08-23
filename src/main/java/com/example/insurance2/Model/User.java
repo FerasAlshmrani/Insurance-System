@@ -32,7 +32,7 @@ public class User {
    private Double balance;
 
    @NotNull(message = "Not Null")
-    @Column(columnDefinition = "int not null")
+   @Column(columnDefinition = "int not null")
    private Integer carQuntity;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy="user")

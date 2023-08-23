@@ -1,5 +1,6 @@
 package com.example.insurance2.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -35,5 +36,6 @@ public class Insurance {
 
     @ManyToOne
     @JoinColumn(name="user_id",referencedColumnName = "id")
+    @JsonIgnore
     private User user;
 }

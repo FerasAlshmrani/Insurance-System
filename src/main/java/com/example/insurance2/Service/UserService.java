@@ -18,7 +18,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
-    private final CarRepository carRepository;
     private final InsurancePackageRepository insurancePackageRepository;
     private final CouponRepository couponRepository;
     private final OrderUserService orderUserService;
@@ -75,7 +74,7 @@ public class UserService {
         return user;
     }
 
-    public void byService(Integer id, String serviceName, String role){
+    public void byService(Integer id, String serviceName){
         User user = userRepository.findUserById(id);
         InsurancePackage service = insurancePackageRepository.findInsurancePackageByinsurancetype(serviceName);
 
@@ -88,14 +87,29 @@ public class UserService {
             throw new ApiException("You Don not have Enough Balance");
         }
 
+        if(user.getCar().size() == 0){
+            throw new ApiException("You Do not have any Car");
+        }
 
+        if(user.getInsuranceSet().size() == 0){
+            throw new ApiException("You Do not have any Insurance");
+        }
+
+        if(user.getCar().size() > user.getCarQuntity()){
+            throw new ApiException("You must add more cars to buy");
+        }
+
+        if(user.getOrderUserSet().size() >= user.getCarQuntity()){
+            throw new ApiException("You must add more cars to buy ");
+        }
+        System.out.println("size"+user.getOrderUserSet().size()+" and quantity"+user.getCarQuntity());
 
         for (Car u : user.getCar()){
             if (u.getCarModel() < 2006){
                 Double raisedPrice = service.getInsurancePrice() * 1.2;
                 Double newBlance = user.getBalance() - raisedPrice;
                 user.setBalance(newBlance);
-                user.setCarQuntity(user.getCarQuntity()+1);
+                //user.setCarQuntity(user.getCarQuntity()+1);
                 userRepository.save(user);
             }
         }
@@ -103,7 +117,7 @@ public class UserService {
             Double raisedPrice = service.getInsurancePrice() * 0.7;
             Double newPrice = user.getBalance() - raisedPrice;
             user.setBalance(newPrice);
-            user.setCarQuntity(user.getCarQuntity()+1);
+            //user.setCarQuntity(user.getCarQuntity()+1);
             userRepository.save(user);
         } else {
 
@@ -112,17 +126,16 @@ public class UserService {
 
             user.setBalance(newBalance);
 
-            user.setCarQuntity(user.getCarQuntity()+1);
+            //user.setCarQuntity(user.getCarQuntity()+1);
             userRepository.save(user);
 
-            orderUserService.addOrderUser(user,service,user.getCar());
 
 
         }
+        orderUserService.addOrderUser(user,service,user.getCar());
+
 
     }
-
-
 
     public void useCoupon(Integer id, String couponCode){
         User user = userRepository.findUserById(id);
