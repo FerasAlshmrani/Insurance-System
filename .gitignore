@@ -32,11 +32,16 @@ insurance2/!**/src/test/**/build/
 ### VS Code ###
 insurance2/.vscode/
 
-insurance2/src/.test/*
+insurance2/src/.test
 insurance2/src/main/.resources/*
+insurance2/src/main/resources/application
+
 
 insurance2/pom.xml
 insurance2/mvnw.cmd
 insurance2/mvnw
 insurance2/.gitignore
 insurance2/.mvn/
+
+insurance2/src/test/java/com/example/insurance2/Insurance2ApplicationTests.java
+insurance2/src/main/resources/application.properties
