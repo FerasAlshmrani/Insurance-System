@@ -19,12 +19,12 @@ public class OrderUserController {
         return ResponseEntity.status(200).body(orderUserService.getAllOrders());
     }
 
-    @PostMapping("/add")
+/*    @PostMapping("/add")
     public ResponseEntity addOrder(@RequestBody @Valid OrderUser orderUser){
         orderUserService.addOrderUser(orderUser);
 
         return ResponseEntity.status(200).body("Order Added");
-    }
+    }*/
 
     @PutMapping("/update/{id}")
     public ResponseEntity updateOrder(@PathVariable Integer id, @RequestBody @Valid OrderUser orderUser){
@@ -32,11 +32,19 @@ public class OrderUserController {
         return ResponseEntity.status(200).body(new ApiResponse("Order updated"));
     }
 
-    @PutMapping("/add/{user_id}/assign/{order_id}")
-    public ResponseEntity assignMerchantToBranch(@PathVariable Integer user_id,@PathVariable Integer order_id){
+    @PutMapping("/add-user-order/{user_id}/assign/{order_id}")
+    public ResponseEntity assignUserToOrder(@PathVariable Integer user_id,@PathVariable Integer order_id){
 
         orderUserService.assaignOrderToUser(user_id,order_id);
         return ResponseEntity.status(200).body(new ApiResponse("assign added"));
     }
+
+    @PutMapping("/add-insurance-order/{insurance}/assign/{order_id}")
+    public ResponseEntity assignInsurancePackageToOrder(@PathVariable Integer insurancePackage_id,@PathVariable Integer order_id){
+
+        orderUserService.assignInsurancePackageToOrder(insurancePackage_id,order_id);
+        return ResponseEntity.status(200).body(new ApiResponse("assign added"));
+    }
+
 
 }

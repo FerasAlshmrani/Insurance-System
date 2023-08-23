@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -28,4 +30,8 @@ public class InsurancePackage {
     @JoinColumn(name = "insurance_id" , referencedColumnName = "id")
     @JsonIgnore
     private Insurance insurance;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy="insurance_package")
+    private Set<OrderUser> orderUserSet;
+
+
 }

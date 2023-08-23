@@ -26,9 +26,9 @@ public class User {
     @Column(columnDefinition = "int not null")
     private Integer phonenumber;
 
-/*    @Column(columnDefinition = "varchar(15) not null check(role IN ('person', 'company'))")
-    @NotEmpty(message = "Role Not Empty")*/
-    private String role = "person";
+    @Column(columnDefinition = "varchar(15) not null check(role IN ('person', 'company'))")
+    @NotEmpty(message = "Role Not Empty")
+    private String role;
 
 
 
