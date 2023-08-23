@@ -19,12 +19,14 @@ public class OrderUserController {
         return ResponseEntity.status(200).body(orderUserService.getAllOrders());
     }
 
+/*
     @PostMapping("/add")
     public ResponseEntity addOrder(@RequestBody @Valid OrderUser orderUser){
         orderUserService.addOrderUser(orderUser);
 
         return ResponseEntity.status(200).body("Order Added");
     }
+*/
 
     @PutMapping("/update/{id}")
     public ResponseEntity updateOrder(@PathVariable Integer id, @RequestBody @Valid OrderUser orderUser){

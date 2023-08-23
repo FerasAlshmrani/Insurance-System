@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -22,10 +24,14 @@ public class InsurancePackage {
     private Double insurancePrice;
     private String duration = "Year";
     @NotEmpty(message = "Should be not empty")
-    @Column(columnDefinition = "varchar(50) NOT NULL check(name = 'Third party insurance' or name = 'full insurance')")
+    @Column(columnDefinition = "varchar(50) NOT NULL check(insurancetype = 'Third party insurance' or insurancetype = 'full insurance')")
     private String insurancetype;
     @ManyToOne
     @JoinColumn(name = "insurance_id" , referencedColumnName = "id")
     @JsonIgnore
     private Insurance insurance;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy="insurance_package")
+    private Set<OrderUser> orderUserSet;
+
+
 }

@@ -20,6 +20,7 @@ public class OrderUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+
     //@NotEmpty(message = "endDate should be not empty")
     private Date endDate;
 
@@ -28,14 +29,25 @@ public class OrderUser {
     private Car car;
 
     @NotEmpty(message = "should be not empty")
-    @Column(columnDefinition = "varchar(15) NOT NULL check(name = 'tawuniya' or name = 'salama' or name = 'walaa') ")
-    private String name;
+    @Column(columnDefinition = "varchar(15) NOT NULL check(insurance_name = 'tawuniya' or insurance_name = 'salama' or insurance_name = 'walaa') ")
+    private String insurance_name;
+
+    private Double insurancePrice;
+    private String duration = "Year";
+    @NotEmpty(message = "Should be not empty")
+    @Column(columnDefinition = "varchar(50) NOT NULL check(insurancetype = 'Third party insurance' or insurancetype = 'full insurance')")
+    private String insurancetype;
+
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @JsonIgnore
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "insurance_package_id" , referencedColumnName = "id")
+    @JsonIgnore
+    private InsurancePackage insurance_package;
 
 
 
