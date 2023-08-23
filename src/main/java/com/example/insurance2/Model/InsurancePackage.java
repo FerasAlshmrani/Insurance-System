@@ -22,7 +22,7 @@ public class InsurancePackage {
     private Double insurancePrice;
     private String duration = "Year";
     @NotEmpty(message = "Should be not empty")
-    @Column(columnDefinition = "varchar(50) NOT NULL check(insurancetype = 'Third party insurance' or insurancetype = 'full insurance')")
+    @Column(columnDefinition = "varchar(50) NOT NULL check(name = 'Third party insurance' or name = 'full insurance')")
     private String insurancetype;
     @ManyToOne
     @JoinColumn(name = "insurance_id" , referencedColumnName = "id")
