@@ -59,37 +59,9 @@ public class OrderUserService {
 
         }
 
-        public OrderUser findOrderUserById(Integer id){
-        return orderUserRepository.findById(id).get();
+        public OrderUser findOrderUserById(Integer id) {
+            return orderUserRepository.findById(id).get();
+
+
         }
-/*
-        orderUser.setUser(user);
-        orderUser.setInsurance_package(insurancePackage);*/
-
-        // insurance class
-//        orderUser.setInsurance_name(insurancePackage.getInsurance().getName());
-
-        // insurancePackage class
-/*
-        orderUser.setInsurancetype(insurancePackage.getInsurancetype());
-        orderUser.setInsurancePrice(insurancePackage.getInsurancePrice());
-        orderUser.setDuration(insurancePackage.getDuration());
-*/
-
-
-        // orderUser.setCar(user.getCar());
-
-
-        //orderUserRepository.save(orderUser);
-
-
-
-/*
-        orderUser1.setCar(orderUser.getCar());
-        orderUser1.s(orderUser.getInsurance_package().getInsurance().getName());
-        orderUser1.setEndDate(orderUser.getEndDate());
-*/
-
-
-
 }

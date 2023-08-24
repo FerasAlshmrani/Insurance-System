@@ -16,27 +16,15 @@ public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    //@NotEmpty(message = "should not be empty")
+    @NotEmpty(message = "should not be empty")
     @Column(columnDefinition = "varchar(20) not null")
     private String carName;
-    //@NotNull(message = "should not be empty")
+    @NotNull(message = "should not be empty")
     @Column(columnDefinition = "int not null")
     private Integer carModel;
-    //@NotNull(message = "should not be empty")
+    @NotNull(message = "should not be empty")
     @Column(columnDefinition = "int not null unique")
     private Integer serialNumber;
-/*
-
-    @OneToOne
-    @MapsId
-    @JsonIgnore
-    private OrderUser order;
-*/
-
-/*    @ManyToOne
-    @JoinColumn(name = "order_id", referencedColumnName = "id")
-    @JsonIgnore
-    private OrderUser orderuser;*/
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")

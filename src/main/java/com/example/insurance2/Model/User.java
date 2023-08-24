@@ -29,7 +29,7 @@ public class User {
     private String role ;
 
    @Column(columnDefinition = "double")
-   private Double balance;
+   private Double balance = 0.0;
 
    @NotNull(message = "Not Null")
    @Column(columnDefinition = "int not null")

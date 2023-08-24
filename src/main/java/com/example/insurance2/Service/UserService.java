@@ -23,10 +23,14 @@ public class UserService {
     private final OrderUserService orderUserService;
 
     public List<User> getAllUser(){
+
         return userRepository.findAll();
     }
 
     public void addUser(User user){
+        if(user.getCarQuntity() != 0){
+            throw new ApiException("Car Quntity must be 0");
+        }
         userRepository.save(user);
     }
 
@@ -102,14 +106,13 @@ public class UserService {
         if(user.getOrderUserSet().size() >= user.getCarQuntity()){
             throw new ApiException("You must add more cars to buy ");
         }
-        System.out.println("size"+user.getOrderUserSet().size()+" and quantity"+user.getCarQuntity());
+
 
         for (Car u : user.getCar()){
             if (u.getCarModel() < 2006){
                 Double raisedPrice = service.getInsurancePrice() * 1.2;
                 Double newBlance = user.getBalance() - raisedPrice;
                 user.setBalance(newBlance);
-                //user.setCarQuntity(user.getCarQuntity()+1);
                 userRepository.save(user);
             }
         }
@@ -117,7 +120,6 @@ public class UserService {
             Double raisedPrice = service.getInsurancePrice() * 0.7;
             Double newPrice = user.getBalance() - raisedPrice;
             user.setBalance(newPrice);
-            //user.setCarQuntity(user.getCarQuntity()+1);
             userRepository.save(user);
         } else {
 
@@ -126,7 +128,6 @@ public class UserService {
 
             user.setBalance(newBalance);
 
-            //user.setCarQuntity(user.getCarQuntity()+1);
             userRepository.save(user);
 
 
@@ -148,7 +149,7 @@ public class UserService {
         } else if (coupon.getStatus().equals("used")) {
             throw new ApiException("Coupon is Already Used");
         } else {
-            Double newBalance = user.getBalance() + coupon.getCouponPrice();
+            double newBalance = user.getBalance() + coupon.getCouponPrice();
             user.setBalance(newBalance);
             coupon.setStatus("used");
             userRepository.save(user);
